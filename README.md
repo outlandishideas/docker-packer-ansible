@@ -22,5 +22,5 @@ and related ansible scripts, something like this should work.
 
 ```
 docker run -v /home/user/ami_build:/build -ti -e AWS_ACCESS_KEY=blah
--e AWS_SECRET_KEY inanimate/packer-ansible "packer build packer.json"
+-e AWS_SECRET_KEY=blah inanimate/packer-ansible "packer build packer.json"
 ```
