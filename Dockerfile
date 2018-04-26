@@ -1,16 +1,18 @@
-FROM hashicorp/packer:0.10.0
+FROM williamyeh/ansible:alpine3
 
 # Define our acceptable ansible version
-ENV ANSIBLE_VERSION 2.1.0.0
+ENV PACKER_VERSION=1.2.3
+ENV PACKER_SHA256SUM=822fe76c2dfe699f187ef8c44537d10453a1545db620e40b345cf6991a690f7d
 
-# Import a testing edge for more recent pkgs
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk add --update git bash wget openssl
 
-# update/install a bunch of stuffs for pythons
-RUN apk add --update py-pip build-base python-dev py-boto && rm -rf /var/cache/apk/**/
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_SHA256SUMS ./
 
-# Install ansible
-RUN pip install ansible>=${ANSIBLE_VERSION}
+RUN sed -i '/.*linux_amd64.zip/!d' packer_${PACKER_VERSION}_SHA256SUMS
+RUN sha256sum -cs packer_${PACKER_VERSION}_SHA256SUMS
+RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /bin
+RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
 
 # Set a default working dir (nice for bind mounting things inside)
 RUN mkdir /build
