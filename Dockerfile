@@ -1,7 +1,7 @@
 FROM williamyeh/ansible:alpine3
 
 # Define our acceptable ansible version
-ENV PACKER_VERSION=1.2.3
+ENV PACKER_VERSION=1.1.1
 ENV PACKER_SHA256SUM=822fe76c2dfe699f187ef8c44537d10453a1545db620e40b345cf6991a690f7d
 
 RUN apk add --update git bash wget openssl
