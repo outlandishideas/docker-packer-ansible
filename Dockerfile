@@ -33,4 +33,4 @@ WORKDIR /build
 ENV USER appuser
 
 # Set our entrypoint back to the default (gitlab-runner needs this)
-ENTRYPOINT ["/bin/sh", "-c"]
+ENTRYPOINT []
